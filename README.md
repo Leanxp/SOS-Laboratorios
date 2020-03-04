@@ -1,3 +1,3 @@
 # SOS-Laboratorios
 
-Este repositorio es para los laboratorios de SOS
+Esto es lo que dimos en el laboratorio 4
