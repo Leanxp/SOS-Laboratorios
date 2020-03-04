@@ -1,0 +1,23 @@
+{
+  "name": "laboratio4",
+  "version": "0.0.0",
+  "description": "This is the result of Lab4",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leanxp/SOS-Laboratorios.git"
+  },
+  "author": "Leandro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Leanxp/SOS-Laboratorios/issues"
+  },
+  "homepage": "https://github.com/Leanxp/SOS-Laboratorios#readme",
+  "dependencies": {
+    "cool-ascii-faces": "^1.3.4"
+  }
+}
