@@ -11,7 +11,7 @@ var app = express();
 
 //Nos vamos a hacer ahora para cuando pidamos el recurso "/date"
 
-app.get("/date", (req, response) => {
+app.get("/time", (req, response) => {
 	var  date = new Date();
 	response.send("<html>"+date+"</html>")
 })
