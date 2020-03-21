@@ -1,8 +1,8 @@
 # SOS-Laboratorios
 
-Este repositorio es para los laboratorios de SOS
+Este es el LAB6
 
-¡Ojo!
+
 
 -----------------------------------------------------------
 
