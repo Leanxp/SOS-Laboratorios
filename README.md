@@ -2,7 +2,7 @@
 
 Este repositorio es para los laboratorios de SOS
 
-¡Ojo!
+ยกOjo!
 
 -----------------------------------------------------------
 
@@ -14,3 +14,7 @@ git push -u origin NOMBREDELARAMA
 
 
 -----------------------------------------------------------
+
+Para crear carpetas (directorios):
+
+mkdir NOMBREDELACARPETA
