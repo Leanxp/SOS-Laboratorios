@@ -1,18 +1,93 @@
-const cool = require("cool-ascii-faces");
 const express = require("express");
+const bodyParser = require("body-parser");
 
 var app = express();
-var port = process.env.PORT || 80; //Se pone la variable y si no, pues toma el valor 80, el puerto 80 vaya.
 
-app.get("/cool", (request,response) =>{ //Cuando te pida /cool, ejecútame..
-	response.send("<html>"+cool()+"</html>");
-}); 
-app.listen(port, () => { //No es recomendable poner el puerto 80, en heroku habrá que especificarle el puerto.
+app.use(bodyParser.json());
+
+var port = process.env.PORT || 80;
+
+var contacts = [
+	{ 
+		name: "Leandro",
+		phone: 670526931	
+	},
+	{ 
+		name: "pablo",
+		phone: 654852178	
+	}
+];
+
+const BASE_API_URL = "/api/v1";
+
+// GET CONTACTS
+
+app.get(BASE_API_URL+"/contacts", (req,res) =>{
+	res.send(JSON.stringify(contacts,null,2));
+	console.log("Data sent:"+JSON.stringify(contacts,null,2));
+});
+
+
+// POST CONTACTS
+
+app.post(BASE_API_URL+"/contacts",(req,res) =>{
+	
+	var newContact = req.body;
+	
+	if((newContact == "") || (newContact.name == null)){
+		res.sendStatus(400,"BAD REQUEST");
+	} else {
+		contacts.push(newContact); 	
+		res.sendStatus(201,"CREATED");
+	}
+});
+
+// DELETE CONTACTS
+
+// GET CONTACT/XXX
+
+app.get(BASE_API_URL+"/contacts/:name", (req,res)=>{
+	
+	var name = req.params.name;
+	
+	var filteredContacts = contacts.filter((c) => {
+		return (c.name == name);
+	});
+	
+	
+	if(filteredContacts.length >= 1){
+		res.send(filteredContacts[0]);
+	}else{
+		res.sendStatus(404,"CONTACT NOT FOUND");
+	}
+});
+
+// PUT CONTACT/XXX
+
+// DELETE CONTACT/XXX
+
+app.delete(BASE_API_URL+"/contacts/:name", (req,res)=>{
+	
+	var name = req.params.name;
+	
+	var filteredContacts = contacts.filter((c) => {
+		return (c.name != name);
+	});
+	
+	
+	if(filteredContacts.length < contacts.length){
+		contacts = filteredContacts;
+		res.sendStatus(200);
+	}else{
+		res.sendStatus(404,"CONTACT NOT FOUND");
+	}
+	
+	
+});
+
+
+app.listen(port, () => {
 	console.log("Server ready");
 });
 
-//El app.use() lo que va a decir es.... "Todo lo que te pida de recurso, lo va a buscar en esa carpeta y te lo va a devolver"
-//Nosotros aqui le hemos dicho... Cuando te manden a /public busca dentro de esa carpeta y si hay una carpeta se lo devuelves
-app.use("/", express.static("./public")); 
-
-console.log("Starting server . . . ");
+console.log("Starting server...");
