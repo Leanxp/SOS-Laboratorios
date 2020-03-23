@@ -74,19 +74,19 @@ app.delete(BASE_API_URL+ "/accstats", (req,res) =>{
 ////////////////////////////////////////////////////
 
 
-app.get(BASE_API_URL+"/accstats/:name", (req,res)=>{ //El :name lo que hace es como que crea una variable que puede tener cualquier valor, yo puedo tener /:org /:loquesea yo puedo tener los que yo quiera
+app.get(BASE_API_URL+"/accstats/:province", (req,res)=>{ //El :province lo que hace es como que crea una variable que puede tener cualquier valor, yo puedo tener /:org /:loquesea yo puedo tener los que yo quiera
 	//¿Cómo accedería al valor concreto de lo que me ha llegado? Pues así con el params el nombre que yo le haya puesto en el : con param me lo pilla
-	var name = req.params.name;
+	var province = req.params.province;
 	
-	var filteredAccstats = accstats.filter((c) => {
+	var filteredAccstats = accstats.filter((p) => {
 		//Le digo que solo me deje pasar en el caso de que el contacto tenga el mismo nombre que el que me están pasando
-		return (c.name == name);
+		return (p.province == province);
 	});
 	
 	if(filteredAccstats.length >= 1){
 		res.send(filteredAccstats[0]); //Devolvería el primer elemento de ese array
 	}else{
-		res.sendStatus(404, "CONTACT NOT FOUND");
+		res.sendStatus(404, "ACCSTAT NOT FOUND");
 	}
 });
 
@@ -97,14 +97,14 @@ app.get(BASE_API_URL+"/accstats/:name", (req,res)=>{ //El :name lo que hace es c
 // PUT accstats/XXX Es decir, a un recurso en concreto   
 ////////////////////////////////////////////////////
 
-app.put(BASE_API_URL+"/accstats/:name", (req,res)=>{
-	var name = req.params.name;
+app.put(BASE_API_URL+"/accstats/:province", (req,res)=>{
+	var province = req.params.province;
 	var body = req.body;
 	
 	var updatedAccstats = accstats.map((c) => {
 		var updatedC = c;
 		
-		if (c.name == name) {
+		if (c.province == province) {
 			for (var p in body) {
 				updatedC[p] = body[p];
 			}	
@@ -113,7 +113,7 @@ app.put(BASE_API_URL+"/accstats/:name", (req,res)=>{
 	});
 	
 	if (updatedAccstats.length == 0) {
-		res.sendStatus(404, "CONTACT NOT FOUND");
+		res.sendStatus(404, "ACCSTAT NOT FOUND");
 	} else {
 		accstats = updatedAccstats;
 		res.sendStatus(200, "OK");
@@ -125,11 +125,11 @@ app.put(BASE_API_URL+"/accstats/:name", (req,res)=>{
 // DELETE accstats/XXX Es decir, a un recurso en concreto   
 ////////////////////////////////////////////////////
 
-app.delete(BASE_API_URL+"/accstats/:name", (req,res)=>{ //Para el delete podría usar un filter pero quitando el que me llega
-	var name = req.params.name;
+app.delete(BASE_API_URL+"/accstats/:province", (req,res)=>{ //Para el delete podría usar un filter pero quitando el que me llega
+	var province = req.params.province;
 	
 	var filteredAccstats = accstats.filter((c) => {
-		return (c.name != name);
+		return (c.province != province);
 	});
 	
 	
@@ -137,7 +137,7 @@ app.delete(BASE_API_URL+"/accstats/:name", (req,res)=>{ //Para el delete podría
 		accstats = filteredAccstats;
 		res.sendStatus(200);
 	}else{
-		res.sendStatus(404,"CONTACT NOT FOUND");
+		res.sendStatus(404,"ACCSTAT NOT FOUND");
 	}	
 });
 
