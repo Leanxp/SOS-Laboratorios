@@ -51,6 +51,14 @@ app.post(BASE_API_URL+"/contacts",(req,res) =>{
 ////////////////////////////////////////////////////
 
 
+app.delete(BASE_API_URL+ "/contacts", (req,res) =>{
+	res.sendStatus(400, "DELETED req CONTACT");
+})
+
+
+
+
+
 //  ========> AHORA SOBRE ELEMENTOS EN CONCRETO...
 
 ////////////////////////////////////////////////////
@@ -81,13 +89,20 @@ app.get(BASE_API_URL+"/contacts/:name", (req,res)=>{ //El :name lo que hace es c
 // PUT CONTACTS/XXX Es decir, a un recurso en concreto   
 ////////////////////////////////////////////////////
 
+app.put(BASE_API_URL+"/contacts/:name", (req,res)=>{
+		
+	var name = req.params.name;
+	res.send(JSON.stringify(name,pull, 2));
+	
+});
+
+
 ////////////////////////////////////////////////////
 // DELETE CONTACTS/XXX Es decir, a un recurso en concreto   
 ////////////////////////////////////////////////////
 
 app.delete(BASE_API_URL+"/contacts/:name", (req,res)=>{ //Para el delete podría usar un filter pero quitando el que me llega
 	var name = req.params.name;
-
 	
 	var filteredContacts = contacts.filter((c) => {
 		return (c.name != name);
