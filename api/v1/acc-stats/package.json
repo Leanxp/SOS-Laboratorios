@@ -1,0 +1,24 @@
+{
+  "name": "acc-stats",
+  "version": "0.0.0",
+  "description": "This is F02 with delivery date March 26",
+  "main": "index.js",
+  "scripts": {
+	"start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gti-sos/SOS1920-06.git"
+  },
+  "author": "Leandro Calvo Durรกn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gti-sos/SOS1920-06/issues"
+  },
+  "homepage": "https://github.com/gti-sos/SOS1920-06#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
