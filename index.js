@@ -52,11 +52,13 @@ app.post(BASE_API_URL+"/contacts",(req,res) =>{
 
 
 app.delete(BASE_API_URL+ "/contacts", (req,res) =>{
-	res.sendStatus(400, "DELETED req CONTACT");
+	contacts = ["YOU DON'T HAVE ANY CONTACTS"];
+	res.sendStatus(200, "CONTACTS DELETED");
 })
 
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //  ========> AHORA SOBRE ELEMENTOS EN CONCRETO...
@@ -90,10 +92,26 @@ app.get(BASE_API_URL+"/contacts/:name", (req,res)=>{ //El :name lo que hace es c
 ////////////////////////////////////////////////////
 
 app.put(BASE_API_URL+"/contacts/:name", (req,res)=>{
-		
 	var name = req.params.name;
-	res.send(JSON.stringify(name,pull, 2));
+	var body = req.body;
 	
+	var updatedContacts = contacts.map((c) => {
+		var updatedC = c;
+		
+		if (c.name == name) {
+			for (var p in body) {
+				updatedC[p] = body[p];
+			}	
+		}
+		return (updatedC);
+	});
+	
+	if (updatedContacts.length == 0) {
+		res.sendStatus(404, "CONTACT NOT FOUND");
+	} else {
+		contacts = updatedContacts;
+		res.sendStatus(200, "OK");
+	}
 });
 
 
@@ -114,9 +132,7 @@ app.delete(BASE_API_URL+"/contacts/:name", (req,res)=>{ //Para el delete podría
 		res.sendStatus(200);
 	}else{
 		res.sendStatus(404,"CONTACT NOT FOUND");
-	}
-	
-	
+	}	
 });
 
 	
