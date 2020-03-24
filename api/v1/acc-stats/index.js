@@ -91,7 +91,7 @@ app.post(BASE_API_URL+"/accstats",(req,res) =>{
 app.delete(BASE_API_URL+ "/accstats", (req,res) =>{
 	accstats = ["YOU DON'T HAVE ANY accstats"];
 	res.sendStatus(200, "accstats DELETED");
-})
+});
 
 
 
