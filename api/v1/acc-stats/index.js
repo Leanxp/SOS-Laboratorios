@@ -7,6 +7,7 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 80; //Si no nos dice nada, desplegamos en puerto 80 y si no, pues el puerto que diga HEROKU.
 
+
 var accstats = [
 	{ 
 		province: "Madrid",
@@ -24,7 +25,37 @@ var accstats = [
 	}
 ];
 
+
 const BASE_API_URL = "/api/v1"; //Tendremos aqui la URL Base, la api el path...
+
+
+/**************************************************/
+// Load Initial Data . . .
+/**************************************************/
+
+
+app.get(BASE_API_URL + "/accstats/loadInitialData", (req, res) => {
+	
+	var accstats = [
+	{ 
+		province: "Madrid",
+		year: 2014,
+		accvictotal: 19942,
+		accvicinter: 4324,
+		accfall: 114
+	},
+	{ 
+		province: "Sevilla",
+		year: 2018,
+		accvictotal: 6515,
+		accvicinter: 1945,
+		accfall: 58	
+	}
+];
+	console.log(". . . Loading initial data");
+	res.send(JSON.stringify(accstats,null,2));	
+});
+
 
 ////////////////////////////////////////////////////
 // GET accstats   
