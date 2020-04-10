@@ -109,7 +109,7 @@ app.delete(BASE_API_URL+ "/accstats", (req,res) =>{
 //  ========> AHORA SOBRE ELEMENTOS EN CONCRETO...
 
 ////////////////////////////////////////////////////
-// GET accstats/XXX Es decir, a un recurso en concreto   
+// GET accstats/XXX Es decir, a varios recursos con provincia
 ////////////////////////////////////////////////////
 
 
@@ -130,21 +130,61 @@ app.get(BASE_API_URL+"/accstats/:province", (req,res)=>{ //El :province lo que h
 });
 
 
+////////////////////////////////////////////////////
+// GET accstats/XXX Es decir, a uno en concreto
+////////////////////////////////////////////////////
+
+
+app.get(BASE_API_URL+"/accstats/:province/:year", (req,res)=>{ 
+	var province = req.params.province;
+	var year = req.params.year;
+	
+	var filteredAccstats = accstats.filter((p) => {
+		//Le digo que solo me deje pasar en el caso de que el contacto tenga el mismo nombre que el que me están pasando
+		return (p.province == province && p.year == year);
+	});
+	
+	if(filteredAccstats.length == 1){
+		res.send(filteredAccstats[0]); //Devolvería el primer elemento de ese array
+		res.sendStatus(200,"OK");
+	}else{
+		res.sendStatus(404, "ACCSTAT NOT FOUND");
+	}
+});
+
+
 
 ////////////////////////////////////////////////////
-// POST accstats/XXX Es decir, a un recurso en concreto   
+// POST accstats/XXX Es decir, a varios recursos con provincia 
 ////////////////////////////////////////////////////
 
 app.post(BASE_API_URL+"/accstats/:province", (req,res)=>{
 	res.sendStatus(405, "METHOD NOT ALLOWED");
 });
 
+////////////////////////////////////////////////////
+// POST accstats/XXX Es decir, a un recurso en concreto
+////////////////////////////////////////////////////
+
+app.post(BASE_API_URL+"/accstats/:province/:year", (req,res)=>{
+	res.sendStatus(405, "METHOD NOT ALLOWED");
+});
+
+
+
+////////////////////////////////////////////////////
+// PUT accstats/XXX Es decir, a varios recursos con provincia 
+////////////////////////////////////////////////////
+
+app.put(BASE_PATH+"/accstats/:province",(req,res) =>{
+	res.sendStatus(405,"METHOD NOT ALLOWED");
+})
 
 ////////////////////////////////////////////////////
 // PUT accstats/XXX Es decir, a un recurso en concreto   
 ////////////////////////////////////////////////////
 
-app.put(BASE_API_URL+"/accstats/:province", (req,res)=>{
+app.put(BASE_API_URL+"/accstats/:province/:year", (req,res)=>{
 	var province = req.params.province;
 	var body = req.body;
 	
